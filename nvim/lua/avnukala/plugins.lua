@@ -34,10 +34,10 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use 'seandewar/nvimesweeper'
-    use 'preservim/nerdtree'
+    use 'nvim-tree/nvim-tree.lua'
     use 'neovim/nvim-lspconfig'
     use 'lervag/vimtex'
-    use 'github/copilot.vim'
+    use 'simrat39/symbols-outline.nvim'
     use {
         'ms-jpq/coq_nvim', branch = 'coq'
     }
@@ -55,6 +55,14 @@ return require('packer').startup(function(use)
         'aserowy/tmux.nvim',
         config = function() return require('tmux').setup() end
     })
+    use{
+        'christoomey/vim-tmux-navigator',
+        lazy=false,
+    }
+    use 'p00f/clangd_extensions.nvim'
+    use 'nvim-treesitter/nvim-treesitter'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if packer_bootstrap then

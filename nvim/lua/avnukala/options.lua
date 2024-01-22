@@ -11,11 +11,11 @@ vim.opt.smartindent = true
 -- Use spaces instead of tabs
 vim.opt.expandtab = true
 -- Number of auto-indent spaces
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
 -- Number of spaces per Tab
-vim.opt.softtabstop = 4
+vim.opt.softtabstop = 2
 -- Number of columns per tab
-vim.opt.tabstop = 4
+vim.opt.tabstop = 2
 
 -- No wrap
 vim.opt.wrap = false

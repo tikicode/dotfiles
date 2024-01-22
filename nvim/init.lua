@@ -1,61 +1,80 @@
--- config 
+-- Vim Commands
+local cmd = vim.cmd  -- To execute Vim commands e.g. cmd('pwd')
+local fn = vim.fn    -- To call Vim functions e.g. fn.bufnr()
+local g = vim.g      -- A table to access global variables
+local opt = vim.opt  -- To set options
+
+-- Disable netrw for NvimTree
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
+
+opt.termguicolors = true -- Enable highlight groups
+
+-- Config 
 require("impatient")
 require("avnukala.options")
 require("avnukala.plugins")
 require("avnukala.mappings")
+
+-- Nvim Tree Setup
+require("nvim-tree").setup({
+    filters = {
+      dotfiles = true,
+    },
+})
+
+-- Auto-start Nvim Tree
+cmd [[autocmd VimEnter * NvimTreeOpen | wincmd p]]
 
 -- COQ Third Party Plugins
 require("coq_3p") {
     { src = "vimtex" },
 }
 
+-- Symbols-outline Setup
+require("symbols-outline").setup()
+
 -- OneDark Setup
 local onedark = require('onedark')
 onedark.load()
 
-local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
-local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
-local g = vim.g      -- a table to access global variables
-local opt = vim.opt  -- to set options
-
-
 --Autostart COQ
 cmd[[let g:coq_settings = { 'auto_start': 'shut-up' }]]
-
 
 -- Setup for autocomplete
 local lsp = require "lspconfig"
 local coq = require "coq" -- add this
 
+-- ClangD Extensions Setup
+require("clangd_extensions.inlay_hints").setup_autocmd()
+require("clangd_extensions.inlay_hints").set_inlay_hints()
 
--- NERDTree - autostart and put cursor in other window
-cmd[[autocmd VimEnter * NERDTree | wincmd p]]
 
-
--- LSP settings
+-- LSP Settings
 local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Mappings.
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-end
-
 lsp.clangd.setup{}
-local servers = { 'texlab', 'pyright','clangd' }
+lsp.clangd.setup(coq.lsp_ensure_capabilities{})
+lsp.asm_lsp.setup{
+    filetypes = { ".S", ".s" },
+}
+lsp.asm_lsp.setup(coq.lsp_ensure_capabilities{})
+lsp.ocamllsp.setup{}
+lsp.ocamllsp.setup(coq.lsp_ensure_capabilities{})
+lsp.texlab.setup{}
+lsp.texlab.setup(coq.lsp_ensure_capabilities{})
+lsp.pyright.setup{}
+lsp.pyright.setup(coq.lsp_ensure_capabilities{})
+local servers = { 'texlab', 'pyright','clangd','asm_lsp'}
 for _, lsps in ipairs(servers) do
     lsp[lsps].setup(require('coq').lsp_ensure_capabilities({
         on_attach = on_attach,
         flags = lsp_flags,
     }))
 end
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 
 
 -- General Settings
@@ -105,7 +124,7 @@ cmd[[
     function! SetServerName()
         call system('echo ' . v:servername . ' > /tmp/curvimserver')
     endfunction
-    ]]
+  ]]
 
 -- Lualine setup
 local lualine = require('lualine')
@@ -137,19 +156,3 @@ lualine.setup {
   extensions = {}
 }
 
-
--- NERDTree setup
-cmd[[
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-                  \ 'Modified'  :'✹',
-                  \ 'Staged'    :'✚',
-                  \ 'Untracked' :'✭',
-                  \ 'Renamed'   :'➜',
-                  \ 'Unmerged'  :'═',
-                  \ 'Deleted'   :'✖',
-                  \ 'Dirty'     :'✗',
-                  \ 'Ignored'   :'☒',
-                  \ 'Clean'     :'✔︎',
-                  \ 'Unknown'   :'?',
-                  \ }
-]]

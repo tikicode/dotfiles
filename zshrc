@@ -51,6 +51,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias katyal="ssh arijit@10.162.34.146"
+alias ugrad="ssh -l anukala1 ugradx.cs.jhu.edu"
+alias nv="nvim"
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/avnukala/opt/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -74,7 +78,6 @@ if [ -f '/Users/avnukala/Downloads/google-cloud-sdk/completion.bash.inc' ]; then
 
 # MacPorts Installer addition on 2022-12-08_at_08:09:37: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
 
 . "$HOME/.cargo/env"
 export PYTHONPATH="/Users/avnukala/Library/CloudStorage/OneDrive-JohnsHopkins/Documents/JHU/Research\ -\ Katyal/order":$PYTHONPATH
@@ -95,7 +98,11 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 alias config='/usr/bin/git --git-dir=/Users/avnukala/.config/ --work-tree=/Users/avnukala'
 
 # opam configuration
 [[ ! -r /Users/avnukala/.opam/opam-init/init.zsh ]] || source /Users/avnukala/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# OpenAI API key NLP
+export OPENAI_API_KEY="BWRrbv43rIc4tTLxwW2eT3BlbkFJvJZ3m9EXGUBPzaLqDoFz"
