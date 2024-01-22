@@ -1,10 +1,13 @@
+# specify a directory to install
+cask_args appdir: '/Applications'
+
 tap "homebrew/bundle"
+tap 'caskroom/homebrew-cask' || true
 
 # OS
 brew "cmake"
 brew "ripgrep"
 brew "tmux"
-cask "mactex"
 brew "neovim"
 brew "texlab"
 brew "universal-ctags"
@@ -36,9 +39,32 @@ brew "fd"
 brew "g2o"
 brew "little-cms2"
 brew "ghostscript", link: false
-cask "grandperspective"
 
 # Databases
 brew "postgresql@11"
 brew "mysql-client"
 brew "mysql"
+
+# Casks
+cask 'google-chrome'
+cask 'firefox'
+cask 'slack'
+cask 'spotify'
+cask 'iterm2'
+cask 'zoom'
+cask 'anki'
+cask 'bitwarden'
+cask 'macs-fan-control'
+cask 'mactex'
+cask 'grandperspective'
+cask 'microsoft-word'
+cask 'microsoft-powerpoint'
+cask 'microsoft-outlook'
+cask 'microsoft-excel'
+cask 'onedrive'
+cask 'todoist'
+cask 'visual-studio-code'
+cask 'notion'
+cask 'logitech-options'
+cask 'raycast'
+cask 'obsidian'
