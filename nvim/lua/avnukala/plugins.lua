@@ -23,14 +23,12 @@ vim.cmd([[
 local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
-    use 'lewis6991/impatient.nvim'
     use 'wbthomason/packer.nvim'
     use 'sheerun/vim-polyglot'
     use 'navarasu/onedark.nvim'
     use 'nvim-lua/plenary.nvim'
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        -- or                            , branch = '0.1.x',
+        'nvim-telescope/telescope.nvim', tag = '0.1.5',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use 'seandewar/nvimesweeper'

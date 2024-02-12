@@ -11,7 +11,7 @@ g.loaded_netrwPlugin = 1
 opt.termguicolors = true -- Enable highlight groups
 
 -- Config 
-require("impatient")
+vim.loader.enable()
 require("avnukala.options")
 require("avnukala.plugins")
 require("avnukala.mappings")
@@ -89,42 +89,42 @@ let g:tex_flavor='latex'
 let g:Tex_DefaultTargetFormat='pdf'
 let g:Tex_CompileRule_pdf='pdflatex'
 let g:vimtex_compiler_method = 'latexmk'
-let g:vimtex_view_method = 'skim'
-let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+let g:vimtex_view_method = 'sioyek'
 let g:vimtex_view_general_options = '-r @line @pdf @tex'
 let maplocalleader = ","
+let g:vimtex_quickfix_mode=0
 set conceallevel=1
 let g:tex_conceal='abdmg'
 ]]
 
 -- setup for vimtex
-cmd[[
-    augroup vimtex_mac
-        autocmd!
-        autocmd User VimtexEventCompileSuccess call UpdateSkim()
-    augroup END
-
-    function! UpdateSkim() abort
-        let l:out = b:vimtex.out()
-        let l:src_file_path = expand('%:p')
-        let l:cmd = [g:vimtex_view_general_viewer, '-r']
-
-        if !empty(system('pgrep Skim'))
-        call extend(l:cmd, ['-g'])
-        endif
-
-        call jobstart(l:cmd + [line('.'), l:out, l:src_file_path])
-    endfunction
-
-    augroup vimtex_mac
-        autocmd!
-        autocmd FileType tex call SetServerName()
-    augroup END
-
-    function! SetServerName()
-        call system('echo ' . v:servername . ' > /tmp/curvimserver')
-    endfunction
-  ]]
+-- cmd[[
+--     augroup vimtex_mac
+--         autocmd!
+--         autocmd User VimtexEventCompileSuccess call UpdateSkim()
+--     augroup END
+-- 
+--     function! UpdateSkim() abort
+--         let l:out = b:vimtex.out()
+--         let l:src_file_path = expand('%:p')
+--         let l:cmd = [g:vimtex_view_general_viewer, '-r']
+-- 
+--         if !empty(system('pgrep Skim'))
+--         call extend(l:cmd, ['-g'])
+--         endif
+-- 
+--         call jobstart(l:cmd + [line('.'), l:out, l:src_file_path])
+--     endfunction
+-- 
+--     augroup vimtex_mac
+--         autocmd!
+--         autocmd FileType tex call SetServerName()
+--     augroup END
+-- 
+--     function! SetServerName()
+--         call system('echo ' . v:servername . ' > /tmp/curvimserver')
+--     endfunction
+--   ]]
 
 -- Lualine setup
 local lualine = require('lualine')
